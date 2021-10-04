@@ -27,7 +27,12 @@ function initEnv() {
     min-height: 100vh;
     `;
     const canvas = document.createElement('canvas');
-    canvas.style = `border: ${BORDER_CANVAS}px solid #888; box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;`;
+    canvas.style = `border: ${BORDER_CANVAS}px solid #888;
+                    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+                                rgba(0, 0, 0, 0.12) 0px -12px 30px,
+                                rgba(0, 0, 0, 0.12) 0px 4px 6px,
+                                rgba(0, 0, 0, 0.17) 0px 12px 13px,
+                                rgba(0, 0, 0, 0.09) 0px -3px 5px;`;
     canvas.width = CANVAS_SIZE_X;
     canvas.height = CANVAS_SIZE_Y;
     document.querySelector('body').appendChild(canvas);
