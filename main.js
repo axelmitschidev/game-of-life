@@ -2,15 +2,15 @@
 
 /* Config the grid with this const */
 
-const CELL_SIZE = 20;
+const CELL_SIZE = 50;
 
-const GRID_SIZE_X = 30;
-const GRID_SIZE_Y = 30;
+const GRID_SIZE_X = 3;
+const GRID_SIZE_Y = 3;
 
-const IN_SET_X = 3;
-const IN_SET_Y = 3;
+const IN_SET_X = 10;
+const IN_SET_Y = 10;
 
-const BORDER_CANVAS = 5;
+const BORDER_CANVAS = 100;
 
 /* -------------------------------------------- */
 
@@ -44,13 +44,12 @@ function initEnv() {
 
 function createGridCell() {
     const grid = [];
-
     for (let i = 0; i < GRID_SIZE_X; i++) {
         grid[i] = [];
         for (let j = 0; j < GRID_SIZE_Y; j++) {
             grid[i][j] = { // Object Cell
-                posX: i * CELL_SIZE,
-                posY: j * CELL_SIZE,
+                posX: (i * CELL_SIZE) + (IN_SET_X * i) + IN_SET_X + BORDER_CANVAS,
+                posY: (j * CELL_SIZE) + (IN_SET_Y * j) + IN_SET_Y + BORDER_CANVAS,
                 aLife: false,
             };
         }
@@ -102,11 +101,12 @@ window.onload = () => {
         // Set-up mouse selector
         for (let i = 0; i < gridCell.length; i++) {
             for (let j = 0; j < gridCell[i].length; j++) {
-                if (mouseX > (gridCell[i][j].posX + IN_SET_X) + (i * IN_SET_X) + IN_SET_X &&
-                    mouseX <= (gridCell[i][j].posX + CELL_SIZE + IN_SET_X) + (i * IN_SET_X) + IN_SET_X &&
-                    mouseY > (gridCell[i][j].posY + IN_SET_Y) + (j * IN_SET_Y) + IN_SET_Y &&
-                    mouseY <= (gridCell[i][j].posY + CELL_SIZE + IN_SET_Y) + (j * IN_SET_Y) + IN_SET_Y) {
-                        console.log(`Cell(x:${i}, y:${j})`);
+                if (mouseX >= gridCell[i][j].posX &&
+                    mouseX <= gridCell[i][j].posX + CELL_SIZE &&
+                    mouseY >= gridCell[i][j].posY &&
+                    mouseY <= gridCell[i][j].posY + CELL_SIZE) {
+                        console.log(`Cell(r:${i}, c:${j})(posX:${gridCell[i][j].posX}, posY:${gridCell[i][j].posY})`);
+                        console.log(`Mouse(x:${mouseX}, y:${mouseY})`);
                         if (gridCell[i][j].aLife) {
                             gridCell[i][j].aLife = false;
                         } else {
