@@ -2,15 +2,15 @@
 
 /* Config the grid with this const */
 
-const CELL_SIZE = 50;
+const CELL_SIZE = 10;
 
-const GRID_SIZE_X = 3;
-const GRID_SIZE_Y = 3;
+const GRID_SIZE_X = 60;
+const GRID_SIZE_Y = 60;
 
-const IN_SET_X = 10;
-const IN_SET_Y = 10;
+const IN_SET_X = 1;
+const IN_SET_Y = 1;
 
-const BORDER_CANVAS = 100;
+const BORDER_CANVAS = 3;
 
 /* -------------------------------------------- */
 
