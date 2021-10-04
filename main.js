@@ -12,6 +12,8 @@ const IN_SET_Y = 1;
 
 const BORDER_CANVAS = 3;
 
+const SPEED = 100;
+
 /* -------------------------------------------- */
 
 const CANVAS_SIZE_X = (GRID_SIZE_X * CELL_SIZE) + (GRID_SIZE_X * IN_SET_X) + IN_SET_X;
@@ -157,7 +159,7 @@ window.onload = () => {
             canvas.style = `border: ${BORDER_CANVAS}px solid #2ecc71;`;
             inter = setInterval(() => {
                 gridProcess();
-            }, 100);
+            }, SPEED);
         } else {
             gameRun = false;
             canvas.style = `border: ${BORDER_CANVAS}px solid #e74c3c;`;
