@@ -1,3 +1,3 @@
-# game-of-life
+# game-of-life in JavaScript Natif
 
-Need help.
+space for Run or Pause

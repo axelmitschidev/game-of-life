@@ -1,17 +1,19 @@
 'use-strict';
 
-/* Config */
+/* Config the grid with this const */
+
 const CELL_SIZE = 20;
 
 const GRID_SIZE_X = 30;
 const GRID_SIZE_Y = 30;
 
-const IN_SET_X = 5;
-const IN_SET_Y = 5;
+const IN_SET_X = 3;
+const IN_SET_Y = 3;
 
 const BORDER_CANVAS = 5;
 
 /* -------------------------------------------- */
+
 const CANVAS_SIZE_X = (GRID_SIZE_X * CELL_SIZE) + (GRID_SIZE_X * IN_SET_X) + IN_SET_X;
 const CANVAS_SIZE_Y = (GRID_SIZE_Y * CELL_SIZE) + (GRID_SIZE_Y * IN_SET_Y) + IN_SET_Y;
 
@@ -91,10 +93,13 @@ window.onload = () => {
     let gridCell = createGridCell();
     drawGrid(gridCell, ctx, canvas);
 
+    let gameRun = false;
+
     document.addEventListener('click', e => {
         const mouseX = e.pageX - canvas.offsetLeft;
         const mouseY = e.pageY - canvas.offsetTop;
 
+        // Set-up mouse selector
         for (let i = 0; i < gridCell.length; i++) {
             for (let j = 0; j < gridCell[i].length; j++) {
                 if (mouseX > (gridCell[i][j].posX + IN_SET_X) + (i * IN_SET_X) + IN_SET_X &&
@@ -113,10 +118,9 @@ window.onload = () => {
         }
         
     });
-    
-    document.addEventListener("keypress", e => {
-        if (e.key === 's') {
-            let g = createGridCell();
+
+    function gridProcess() {
+        let gridBuffer = createGridCell();
             for (let i = 0; i < gridCell.length; i++) {
                 for (let j = 0; j < gridCell[i].length; j++) {
                     let nbCells = 0;
@@ -133,17 +137,29 @@ window.onload = () => {
                         
                     }
                     if (!gridCell[i][j].aLife && nbCells === 3) {
-                        g[i][j].aLife = true;
+                        gridBuffer[i][j].aLife = true;
                         
                     } else if (gridCell[i][j].aLife && nbCells === 3 || gridCell[i][j].aLife && nbCells === 2) {
-                        g[i][j].aLife = true;
+                        gridBuffer[i][j].aLife = true;
                     } else {
-                        g[i][j].aLife = false;
+                        gridBuffer[i][j].aLife = false;
                     }
                 }
             }
-            gridCell = [...g];
+            gridCell = [...gridBuffer];
             drawGrid(gridCell, ctx, canvas);
+    }
+
+    let inter = {};
+    document.addEventListener("keypress", e => {
+        if (e.key === ' ' && !gameRun) {
+            gameRun = true;
+            inter = setInterval(() => {
+                gridProcess();
+            }, 100);
+        } else {
+            clearInterval(inter);
+            gameRun = false;
         }
     });
 }
