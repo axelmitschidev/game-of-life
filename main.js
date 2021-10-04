@@ -29,7 +29,7 @@ function initEnv() {
     min-height: 100vh;
     `;
     const canvas = document.createElement('canvas');
-    canvas.style = `border: ${BORDER_CANVAS}px solid #888;
+    canvas.style = `border: ${BORDER_CANVAS}px solid #e74c3c;
                     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
                                 rgba(0, 0, 0, 0.12) 0px -12px 30px,
                                 rgba(0, 0, 0, 0.12) 0px 4px 6px,
@@ -154,12 +154,14 @@ window.onload = () => {
     document.addEventListener("keypress", e => {
         if (e.key === ' ' && !gameRun) {
             gameRun = true;
+            canvas.style = `border: ${BORDER_CANVAS}px solid #2ecc71;`;
             inter = setInterval(() => {
                 gridProcess();
             }, 100);
         } else {
-            clearInterval(inter);
             gameRun = false;
+            canvas.style = `border: ${BORDER_CANVAS}px solid #e74c3c;`;
+            clearInterval(inter);
         }
     });
 }
