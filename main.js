@@ -1,10 +1,10 @@
 'use-strict';
 
 /* Config */
-const CELL_SIZE = 40;
+const CELL_SIZE = 15;
 
-const GRID_SIZE_X = 7;
-const GRID_SIZE_Y = 7;
+const GRID_SIZE_X = 40;
+const GRID_SIZE_Y = 40;
 
 const IN_SET_X = 3;
 const IN_SET_Y = 3;
@@ -41,7 +41,7 @@ function createGridCell() {
     for (let i = 0; i < GRID_SIZE_X; i++) {
         grid[i] = [];
         for (let j = 0; j < GRID_SIZE_Y; j++) {
-            grid[i][j] = { // Objet Cell
+            grid[i][j] = { // Object Cell
                 posX: i * CELL_SIZE,
                 posY: j * CELL_SIZE,
                 aLife: false,
@@ -57,21 +57,12 @@ function drawGrid(grid, ctx, canvas) {
         for (let j = 0; j < grid[i].length; j++) {
             if (grid[i][j].aLife) {
                 ctx.fillStyle = '#888';
-                ctx.fillRect(i * (CELL_SIZE + IN_SET_X) + IN_SET_X, j * (CELL_SIZE + IN_SET_Y) + IN_SET_Y, CELL_SIZE, CELL_SIZE);
             } else {
                 ctx.fillStyle = '#111';
-                ctx.fillRect(i * (CELL_SIZE + IN_SET_X) + IN_SET_X, j * (CELL_SIZE + IN_SET_Y) + IN_SET_Y, CELL_SIZE, CELL_SIZE);
             }
+            ctx.fillRect(i * (CELL_SIZE + IN_SET_X) + IN_SET_X, j * (CELL_SIZE + IN_SET_Y) + IN_SET_Y, CELL_SIZE, CELL_SIZE);
         }
     }
-}
-
-function debugGrid(grid) {
-    grid.forEach(column => {
-        column.forEach(cell => {
-            console.log(cell.aLife);
-        })
-    });
 }
 
 window.onload = () => {
@@ -102,42 +93,6 @@ window.onload = () => {
                         }
 
                     }
-            }
-        }
-    });
-
-    document.addEventListener('keydown', e => {
-        const gridCellBuffer = createGridCell();
-        if (e.key === ' ') {
-            let nbOfCells = 0;
-            for (let i = 0; i < gridCell.length; i++) {
-                for (let j = 0; j < gridCell[i].length; j++) {
-                    /* see ./grid-test.png */
-                    try {
-                        if (gridCell[i - 1][j - 1].aLife && gridCell[i - 1][j - 1] !== undefined) nbOfCells++; // 1
-                        if (gridCell[i    ][j - 1].aLife && gridCell[i    ][j - 1] !== undefined) nbOfCells++; // 2
-                        if (gridCell[i + 1][j - 1].aLife && gridCell[i + 1][j - 1] !== undefined) nbOfCells++; // 3
-                        if (gridCell[i - 1][j    ].aLife && gridCell[i - 1][j    ] !== undefined) nbOfCells++; // 4
-                        if (gridCell[i + 1][j    ].aLife && gridCell[i + 1][j    ] !== undefined) nbOfCells++; // 5
-                        if (gridCell[i - 1][j + 1].aLife && gridCell[i - 1][j + 1] !== undefined) nbOfCells++; // 6
-                        if (gridCell[i    ][j + 1].aLife && gridCell[i    ][j + 1] !== undefined) nbOfCells++; // 7
-                        if (gridCell[i + 1][j + 1].aLife && gridCell[i + 1][j + 1] !== undefined) nbOfCells++; // 8
-                    } catch {
-                        console.log(`out cell: i:${i} j:${j}`);
-                    }
-
-                    if (!gridCell[i][j].aLife && nbOfCells === 3) {
-                        gridCellBuffer[i][j].aLife = true;
-                    } else if (gridCellBuffer[i][j].aLife && nbOfCells === 3 || gridCell[i][j].aLife && nbOfCells === 2) {
-                        gridCellBuffer[i][j].aLife = true;
-                    } else {
-                        gridCellBuffer[i][j].aLife = false;
-                    }
-
-                    gridCell = gridCellBuffer;
-
-                    drawGrid(gridCell, ctx, canvas);
-                }
             }
         }
     });
