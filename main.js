@@ -2,17 +2,17 @@
 
 /* Config the grid with this const */
 
-const CELL_SIZE = 10;
+const CELL_SIZE = 3;
 
-const GRID_SIZE_X = 60;
-const GRID_SIZE_Y = 60;
+const GRID_SIZE_X = 190;
+const GRID_SIZE_Y = 190;
 
 const IN_SET_X = 1;
 const IN_SET_Y = 1;
 
 const BORDER_CANVAS = 3;
 
-const SPEED = 100;
+const SPEED = 1;
 
 /* -------------------------------------------- */
 
@@ -166,4 +166,15 @@ window.onload = () => {
             clearInterval(inter);
         }
     });
+
+    document.addEventListener("keypress", e => {
+        if (e.key === 'r') {
+            gameRun = false;
+            canvas.style = `border: ${BORDER_CANVAS}px solid #e74c3c;`;
+            clearInterval(inter);
+
+            gridCell = createGridCell();
+            drawGrid(gridCell, ctx, canvas);
+        }
+    })
 }
